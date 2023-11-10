@@ -1,4 +1,4 @@
-import 'package:crypto_v1/core/extensions/text_ex.dart';
+import 'package:crypto_v1/core/extensions/utils_extension.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 

@@ -2,7 +2,7 @@ import 'package:crypto_v1/core/constants/colorConst.dart';
 import 'package:crypto_v1/core/constants/imageConst.dart';
 import 'package:crypto_v1/core/constants/text_style_const.dart';
 import 'package:crypto_v1/core/extensions/size_box.dart';
-import 'package:crypto_v1/core/extensions/text_ex.dart';
+import 'package:crypto_v1/core/extensions/utils_extension.dart';
 import 'package:crypto_v1/presentation/Bloc/Crypto_Exchange/bloc/bloc.dart';
 import 'package:crypto_v1/presentation/Bloc/Crypto_Exchange/event/event.dart';
 import 'package:crypto_v1/presentation/Bloc/Crypto_Exchange/state/state.dart';
@@ -19,22 +19,14 @@ import '../../domain/entity/crypto_exchange/entity.dart';
 import '../widget/CryptoWidget.dart';
 import '../widget/Heading.dart';
 import '../widget/TobBitcoinWidget.dart';
+import '../widget/bottomBarWidget.dart';
 import '../widget/headerBar.dart';
 import '../widget/iconWidget.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,92 +41,48 @@ class _HomeScreenState extends State<HomeScreen> {
                 const HeaderBar(),
                 const SearchBarWidget(),
                 const HeadingBar(head: "Cryptocurrency", trail: "NFT"),
-                BlocConsumer<CryptoBloc, CryptoExchangeState>(
-                  builder: (context, state) {
-                    return state.when(intial: () {
-                      return const SizedBox();
-                    }, failed: (ApiFailure apiFailure) {
-                      return FailureWidget(failure: apiFailure);
-                    }, loading: () {
-                      return const Loading();
-                    }, loaded: (CryptoExchangeEntity data) {
-                      return Column(
-                        children: [
-                          TopBitcoinWidget(
-                            entity: data.data!.first,
-                          ),
-                          const HeadingBar(
-                              head: "Top Cryptocurrencies",
-                              trail: "View All",
-                              isheading2: true),
-                          ...data.data!
-                              .skip(1)
-                              .map((e) => CryptoWidget(
-                                    entity: e,
-                                  ))
-                              .toList(),
-                        ],
-                      );
-                    });
-                  },
-                  listener: (context, state) {},
-                )
+                const BlocWidget()
               ],
             ),
           ),
         ),
       ),
-      bottomNavigationBar: Container(
-        alignment: Alignment.topCenter,
-        height: 70,
-        margin: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-            color: blackColor, borderRadius: BorderRadius.circular(25)),
-        child: Stack(
-          clipBehavior: Clip.none,
-          alignment: Alignment.bottomCenter,
-          children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  IconWidget(
-                    icon: ImageConst.face,
-                    head: "€-\$hop",
-                  ),
-                  IconWidget(
-                    icon: ImageConst.exchange,
-                    head: "Exchange",
-                  ),
-                  SizedBox(
-                    width: 30,
-                  ),
-                  IconWidget(
-                    icon: ImageConst.rocket,
-                    head: "Launchpads",
-                  ),
-                  IconWidget(
-                    icon: ImageConst.wallet,
-                    head: "Wallet",
-                  ),
-                ],
-              ),
-            ),
-            Positioned(
-              top: null,
-              bottom: -26.5,
-              child: Image.asset(
-                ImageConst.meta,
-                height: 150,
-                width: 150,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ],
-        ),
-      ),
+      bottomNavigationBar: const BottomBarWidget(),
+    );
+  }
+}
+
+class BlocWidget extends StatelessWidget {
+  const BlocWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<CryptoBloc, CryptoExchangeState>(
+      builder: (context, state) {
+        return state.when(
+            intial: () => const SizedBox(),
+            failed: (ApiFailure apiFailure) =>
+                FailureWidget(failure: apiFailure),
+            loading: () => const Loading(),
+            loaded: (CryptoExchangeEntity data) => Column(
+                  children: [
+                    TopBitcoinWidget(entity: data.data!.first),
+                    const HeadingBar(
+                        head: "Top Cryptocurrencies",
+                        trail: "View All",
+                        isheading2: true),
+                    ...data.data!
+                        .skip(1)
+                        .map((e) => CryptoWidget(
+                              entity: e,
+                            ))
+                        .toList()
+                  ],
+                ));
+      },
+      listener: (context, state) {},
     );
   }
 }

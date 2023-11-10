@@ -8,6 +8,5 @@ abstract class ApiFailure with _$ApiFailure {
       _ServerFailed;
   const factory ApiFailure.timeout() = _Timeout;
   const factory ApiFailure.internetOut() = _InternetOut;
-
   const factory ApiFailure.invalidToken() = _invalidCredential;
 }

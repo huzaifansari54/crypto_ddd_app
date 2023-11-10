@@ -1,6 +1,6 @@
 import 'package:crypto_v1/core/constants/colorConst.dart';
 import 'package:crypto_v1/core/extensions/size_box.dart';
-import 'package:crypto_v1/core/extensions/text_ex.dart';
+import 'package:crypto_v1/core/extensions/utils_extension.dart';
 import 'package:flutter/material.dart';
 
 class IconWidget extends StatelessWidget {

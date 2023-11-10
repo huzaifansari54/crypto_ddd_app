@@ -1,5 +1,5 @@
 import 'package:crypto_v1/core/extensions/size_box.dart';
-import 'package:crypto_v1/core/extensions/text_ex.dart';
+import 'package:crypto_v1/core/extensions/utils_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cache/image_cache.dart' as MyImageCache;
 import '../../core/constants/colorConst.dart';

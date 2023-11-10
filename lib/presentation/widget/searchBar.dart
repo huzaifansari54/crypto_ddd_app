@@ -1,5 +1,5 @@
 import 'package:crypto_v1/core/extensions/size_box.dart';
-import 'package:crypto_v1/core/extensions/text_ex.dart';
+import 'package:crypto_v1/core/extensions/utils_extension.dart';
 import 'package:crypto_v1/presentation/Bloc/Crypto_Exchange/bloc/bloc.dart';
 import 'package:crypto_v1/presentation/Bloc/Crypto_Exchange/event/event.dart';
 import 'package:flutter/material.dart';
@@ -47,68 +47,66 @@ class SearchBarWidget extends StatelessWidget {
                       border: InputBorder.none),
                 )),
           ),
-          GestureDetector(
-            onTap: () {},
-            child: Container(
-              height: 45,
-              alignment: Alignment.center,
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(25),
-                  border: Border.all(
-                    width: 1.5,
-                    color: gray2.withOpacity(0.6),
-                  )),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  PopupMenuButton(
-                      padding: EdgeInsets.zero,
-                      icon: const Icon(
-                        Icons.sort,
-                        color: gray2,
+          Container(
+            height: 45,
+            alignment: Alignment.center,
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(25),
+                border: Border.all(
+                  width: 1.5,
+                  color: gray2.withOpacity(0.6),
+                )),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                PopupMenuButton(
+                    padding: EdgeInsets.zero,
+                    icon: const Icon(
+                      Icons.sort,
+                      color: gray2,
+                    ),
+                    color: whiteColor,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
                       ),
-                      color: whiteColor,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                      ),
-                      itemBuilder: (context) {
-                        return [
-                          ...filter.values.map((e) => PopupMenuItem<int>(
-                                height: 10,
-                                onTap: () {
-                                  switch (e) {
-                                    case filter.price:
-                                      context.read<CryptoBloc>().add(
-                                          const CryptoEvent.filter(
-                                              fil: filter.price));
-                                      break;
-                                    case filter.volume_24h:
-                                      context.read<CryptoBloc>().add(
-                                          const CryptoEvent.filter(
-                                              fil: filter.volume_24h));
-                                      break;
-                                  }
-                                },
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 5),
-                                child: Text(
-                                  e.toString().split('.').last,
-                                  style: interBold.copyWith(
-                                      fontSize: 12, color: secondBlackColor),
-                                ),
-                              )),
-                        ];
-                      },
-                      onSelected: (value) async {}),
-                  "Filter".text(size: 12, color: greyColor.withOpacity(0.5))
-                ],
-              ),
+                    ),
+                    itemBuilder: (context) {
+                      return [
+                        ...filter.values.map((e) => PopupMenuItem<int>(
+                              height: 10,
+                              onTap: () {
+                                switch (e) {
+                                  case filter.price:
+                                    context.read<CryptoBloc>().add(
+                                        const CryptoEvent.filter(
+                                            fil: filter.price));
+                                    break;
+                                  case filter.volume_24h:
+                                    context.read<CryptoBloc>().add(
+                                        const CryptoEvent.filter(
+                                            fil: filter.volume_24h));
+                                    break;
+                                }
+                              },
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 15, vertical: 5),
+                              child: Text(
+                                e.toString().split('.').last,
+                                style: interBold.copyWith(
+                                    fontSize: 12, color: secondBlackColor),
+                              ),
+                            )),
+                      ];
+                    },
+                    onSelected: (value) async {}),
+                "Filter".text(size: 12, color: greyColor.withOpacity(0.5))
+              ],
             ),
-          )
+          ),
+          5.sw
         ],
       ),
     );
