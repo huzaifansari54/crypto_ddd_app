@@ -28,7 +28,7 @@ class SearchBarWidget extends StatelessWidget {
                 color: lightBlackColor,
                 borderRadius: BorderRadius.circular(25)),
             child: SizedBox(
-                width: 250,
+                width: 220,
                 height: 45,
                 child: TextFormField(
                   style: interMedium,
@@ -65,9 +65,9 @@ class SearchBarWidget extends StatelessWidget {
                 children: [
                   PopupMenuButton(
                       padding: EdgeInsets.zero,
-                      icon: Image.asset(
-                        ImageConst.filterIcon,
-                        scale: 2,
+                      icon: const Icon(
+                        Icons.sort,
+                        color: gray2,
                       ),
                       color: whiteColor,
                       shape: const RoundedRectangleBorder(
@@ -95,68 +95,15 @@ class SearchBarWidget extends StatelessWidget {
                                 },
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 15, vertical: 5),
-                                value: 0,
                                 child: Text(
                                   e.toString().split('.').last,
                                   style: interBold.copyWith(
                                       fontSize: 12, color: secondBlackColor),
                                 ),
                               )),
-                          // PopupMenuItem<int>(
-                          //   padding: EdgeInsets.only(
-                          //       right: 2.w, left: 3.5.w, bottom: 0.7.h),
-                          //   value: 0,
-                          //   child: Text(
-                          //     "Add Employee",
-                          //     style: poppinsMedium.copyWith(
-                          //         fontSize: 12.sp, color: secondBlackColor),
-                          //   ),
-                          // ),
-                          // PopupMenuItem<int>(
-                          //   padding: EdgeInsets.only(
-                          //       right: 2.w, left: 3.5.w, bottom: 0.7.h),
-                          //   value: 1,
-                          //   child: Text(
-                          //     "Credit Setup",
-                          //     style: poppinsMedium.copyWith(
-                          //         fontSize: 12.sp, color: secondBlackColor),
-                          //   ),
-                          // ),
-                          // PopupMenuItem<int>(
-                          //   padding: EdgeInsets.only(
-                          //       right: 2.w, left: 3.5.w, bottom: 0.7.h),
-                          //   value: 2,
-                          //   child: Text(
-                          //     "Logout",
-                          //     style: poppinsMedium.copyWith(
-                          //         fontSize: 12.sp, color: secondBlackColor),
-                          //   ),
-                          // ),
                         ];
                       },
-                      onSelected: (value) async {
-                        // print(value);
-                        // if (value == 0) {
-                        //   Navigator.push(
-                        //       context,
-                        //       MaterialPageRoute(
-                        //         builder: (context) =>
-                        //             EmployeeCreateAccountScreen(),
-                        //       ));
-                        // } else if (value == 2) {
-                        //   await FirebaseAuth.instance.signOut();
-                        //   PrefServices().clearData();
-                        //   Navigator.pushReplacementNamed(
-                        //       context, Routes.WelcomeScreen);
-                        // } else if (value == 1) {
-                        //   Navigator.push(
-                        //       context,
-                        //       MaterialPageRoute(
-                        //         builder: (context) => CreditSetUpScreen(),
-                        //       ));
-                        // }
-                      }),
-                  5.sw,
+                      onSelected: (value) async {}),
                   "Filter".text(size: 12, color: greyColor.withOpacity(0.5))
                 ],
               ),

@@ -11,26 +11,24 @@ class HeaderBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          "Exchanges".text(size: 25, fontWeight: FontWeight.w800),
-          Row(
-            children: [
-              Image.asset(
-                ImageConst.notification,
-                scale: 1.8,
-              ),
-              10.sw,
-              Image.asset(
-                ImageConst.settingIcon,
-                scale: 1.8,
-              )
-            ],
-          )
-        ],
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        "Exchanges".text(size: 25, fontWeight: FontWeight.w800),
+        Row(
+          children: [
+            Image.asset(
+              ImageConst.notification,
+              scale: 1.8,
+            ),
+            10.sw,
+            Image.asset(
+              ImageConst.settingIcon,
+              scale: 1.8,
+            )
+          ],
+        )
+      ],
     );
   }
 }
