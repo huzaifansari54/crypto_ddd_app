@@ -62,46 +62,44 @@ class SearchBarWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 PopupMenuButton(
-                    padding: EdgeInsets.zero,
-                    icon: const Icon(
-                      Icons.sort,
-                      color: gray2,
+                  padding: EdgeInsets.zero,
+                  icon: const Icon(
+                    Icons.sort,
+                    color: gray2,
+                  ),
+                  color: whiteColor,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
                     ),
-                    color: whiteColor,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                    ),
-                    itemBuilder: (context) {
-                      return [
-                        ...filter.values.map((e) => PopupMenuItem<int>(
-                              height: 10,
-                              onTap: () {
-                                switch (e) {
-                                  case filter.price:
-                                    context.read<CryptoBloc>().add(
-                                        const CryptoEvent.filter(
-                                            fil: filter.price));
-                                    break;
-                                  case filter.volume_24h:
-                                    context.read<CryptoBloc>().add(
-                                        const CryptoEvent.filter(
-                                            fil: filter.volume_24h));
-                                    break;
-                                }
-                              },
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 15, vertical: 5),
-                              child: Text(
-                                e.toString().split('.').last,
-                                style: interBold.copyWith(
-                                    fontSize: 12, color: secondBlackColor),
-                              ),
-                            )),
-                      ];
-                    },
-                    onSelected: (value) async {}),
+                  ),
+                  itemBuilder: (context) {
+                    return [
+                      ...filter.values.map((e) => PopupMenuItem<int>(
+                            height: 10,
+                            onTap: () {
+                              switch (e) {
+                                case filter.price:
+                                  showRange(
+                                      context, "Select Range", filter.price);
+                                  break;
+                                case filter.volume_24h:
+                                  showRange(context, "Select Range",
+                                      filter.volume_24h);
+                                  break;
+                              }
+                            },
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 15, vertical: 5),
+                            child: Text(
+                              e.toString().split('.').last,
+                              style: interBold.copyWith(
+                                  fontSize: 12, color: secondBlackColor),
+                            ),
+                          )),
+                    ];
+                  },
+                ),
                 "Filter".text(size: 12, color: greyColor.withOpacity(0.5))
               ],
             ),
@@ -109,6 +107,107 @@ class SearchBarWidget extends StatelessWidget {
           5.sw
         ],
       ),
+    );
+  }
+
+  PersistentBottomSheetController<dynamic> showRange(
+      BuildContext context, String title, filter fil) {
+    return showBottomSheet(
+      context: context,
+      builder: (context) {
+        return Container(
+          decoration: BoxDecoration(
+              color: greenColor.withOpacity(0.2),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(20))),
+          height: 300,
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(Icons.cancel)),
+                  title.text(size: 18),
+                ],
+              ),
+              RangeSliderExample(
+                fil: fil,
+              )
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+class RangeSliderExample extends StatefulWidget {
+  const RangeSliderExample({super.key, required this.fil});
+  final filter fil;
+
+  @override
+  State<RangeSliderExample> createState() => _RangeSliderExampleState();
+}
+
+class _RangeSliderExampleState extends State<RangeSliderExample> {
+  RangeValues _currentRangeValues = const RangeValues(40, 80);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        RangeSlider(
+          values: _currentRangeValues,
+          max: 100,
+          divisions: 5,
+          labels: RangeLabels(
+            _currentRangeValues.start.round().toString(),
+            _currentRangeValues.end.round().toString(),
+          ),
+          onChanged: (RangeValues values) {
+            setState(() {
+              _currentRangeValues = values;
+            });
+          },
+        ),
+        MaterialButton(
+          color: greenColor,
+          shape: const StadiumBorder(),
+          onPressed: () {
+            switch (widget.fil) {
+              case filter.price:
+                context.read<CryptoBloc>().add(CryptoEvent.filter(query: {
+                      "price_min": _currentRangeValues.start,
+                      "price_max": _currentRangeValues.end,
+                      "limit": 5
+                    }, fil: filter.price));
+                break;
+              case filter.volume_24h:
+                context.read<CryptoBloc>().add(CryptoEvent.filter(query: {
+                      "volume_24h_min": _currentRangeValues.start,
+                      "volume_24h_max": _currentRangeValues.end,
+                      "limit": 5
+                    }, fil: filter.price));
+                break;
+            }
+
+            Navigator.pop(context);
+          },
+          child: SizedBox(
+            width: 100,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.sort),
+                "Filter".text(),
+              ],
+            ),
+          ),
+        )
+      ],
     );
   }
 }

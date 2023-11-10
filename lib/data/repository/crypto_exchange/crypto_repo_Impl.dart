@@ -25,4 +25,18 @@ class CryptoRepositoryImp implements CryptoExchangeRepository {
       return dioErrorHandler(e);
     }
   }
+
+  @override
+  ResultOrFailure<ApiFailure, CryptoExchangeModel> filter(
+      {required DataMap query}) async {
+    try {
+      final cryptData = await _dataSource.filter(query: query);
+      return right(cryptData);
+    } on ApiException catch (e) {
+      return Left(ApiFailure.serverFailed(
+          message: e.failure!.status.error_message ?? "no message"));
+    } on DioException catch (e) {
+      return dioErrorHandler(e);
+    }
+  }
 }

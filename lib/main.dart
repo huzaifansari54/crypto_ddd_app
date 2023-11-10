@@ -22,8 +22,9 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<CryptoBloc>(
-          create: (context) => CryptoBloc(locator())
-            ..add(const CryptoEvent.getAllCryptoExchange(query: {"limit": 10})),
+          create: (context) => CryptoBloc(locator(), locator())
+            ..add(const CryptoEvent.getAllCryptoExchange(
+                query: {"limit": 2, "sort": "market_cap"})),
         ),
       ],
       child: MaterialApp(

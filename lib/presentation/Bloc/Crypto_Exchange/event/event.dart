@@ -7,5 +7,6 @@ part 'event.freezed.dart';
 abstract class CryptoEvent with _$CryptoEvent {
   const factory CryptoEvent.getAllCryptoExchange({required DataMap query}) =
       _GetAll;
-  const factory CryptoEvent.filter({required filter fil}) = _Filter;
+  const factory CryptoEvent.filter(
+      {required DataMap query, required filter fil}) = _Filter;
 }

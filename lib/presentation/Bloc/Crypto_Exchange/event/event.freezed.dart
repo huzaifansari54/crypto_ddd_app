@@ -16,22 +16,23 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$CryptoEvent {
+  Map<String, dynamic> get query => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Map<String, dynamic> query) getAllCryptoExchange,
-    required TResult Function(filter fil) filter,
+    required TResult Function(Map<String, dynamic> query, filter fil) filter,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(Map<String, dynamic> query)? getAllCryptoExchange,
-    TResult? Function(filter fil)? filter,
+    TResult? Function(Map<String, dynamic> query, filter fil)? filter,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Map<String, dynamic> query)? getAllCryptoExchange,
-    TResult Function(filter fil)? filter,
+    TResult Function(Map<String, dynamic> query, filter fil)? filter,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -54,6 +55,10 @@ mixin _$CryptoEvent {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $CryptoEventCopyWith<CryptoEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -61,6 +66,8 @@ abstract class $CryptoEventCopyWith<$Res> {
   factory $CryptoEventCopyWith(
           CryptoEvent value, $Res Function(CryptoEvent) then) =
       _$CryptoEventCopyWithImpl<$Res, CryptoEvent>;
+  @useResult
+  $Res call({Map<String, dynamic> query});
 }
 
 /// @nodoc
@@ -72,13 +79,28 @@ class _$CryptoEventCopyWithImpl<$Res, $Val extends CryptoEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? query = null,
+  }) {
+    return _then(_value.copyWith(
+      query: null == query
+          ? _value.query
+          : query // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$GetAllImplCopyWith<$Res> {
+abstract class _$$GetAllImplCopyWith<$Res>
+    implements $CryptoEventCopyWith<$Res> {
   factory _$$GetAllImplCopyWith(
           _$GetAllImpl value, $Res Function(_$GetAllImpl) then) =
       __$$GetAllImplCopyWithImpl<$Res>;
+  @override
   @useResult
   $Res call({Map<String, dynamic> query});
 }
@@ -146,7 +168,7 @@ class _$GetAllImpl implements _GetAll {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Map<String, dynamic> query) getAllCryptoExchange,
-    required TResult Function(filter fil) filter,
+    required TResult Function(Map<String, dynamic> query, filter fil) filter,
   }) {
     return getAllCryptoExchange(query);
   }
@@ -155,7 +177,7 @@ class _$GetAllImpl implements _GetAll {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(Map<String, dynamic> query)? getAllCryptoExchange,
-    TResult? Function(filter fil)? filter,
+    TResult? Function(Map<String, dynamic> query, filter fil)? filter,
   }) {
     return getAllCryptoExchange?.call(query);
   }
@@ -164,7 +186,7 @@ class _$GetAllImpl implements _GetAll {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Map<String, dynamic> query)? getAllCryptoExchange,
-    TResult Function(filter fil)? filter,
+    TResult Function(Map<String, dynamic> query, filter fil)? filter,
     required TResult orElse(),
   }) {
     if (getAllCryptoExchange != null) {
@@ -209,19 +231,23 @@ abstract class _GetAll implements CryptoEvent {
   const factory _GetAll({required final Map<String, dynamic> query}) =
       _$GetAllImpl;
 
+  @override
   Map<String, dynamic> get query;
+  @override
   @JsonKey(ignore: true)
   _$$GetAllImplCopyWith<_$GetAllImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$FilterImplCopyWith<$Res> {
+abstract class _$$FilterImplCopyWith<$Res>
+    implements $CryptoEventCopyWith<$Res> {
   factory _$$FilterImplCopyWith(
           _$FilterImpl value, $Res Function(_$FilterImpl) then) =
       __$$FilterImplCopyWithImpl<$Res>;
+  @override
   @useResult
-  $Res call({filter fil});
+  $Res call({Map<String, dynamic> query, filter fil});
 }
 
 /// @nodoc
@@ -235,9 +261,14 @@ class __$$FilterImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? query = null,
     Object? fil = null,
   }) {
     return _then(_$FilterImpl(
+      query: null == query
+          ? _value._query
+          : query // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
       fil: null == fil
           ? _value.fil
           : fil // ignore: cast_nullable_to_non_nullable
@@ -249,14 +280,24 @@ class __$$FilterImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$FilterImpl implements _Filter {
-  const _$FilterImpl({required this.fil});
+  const _$FilterImpl(
+      {required final Map<String, dynamic> query, required this.fil})
+      : _query = query;
+
+  final Map<String, dynamic> _query;
+  @override
+  Map<String, dynamic> get query {
+    if (_query is EqualUnmodifiableMapView) return _query;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_query);
+  }
 
   @override
   final filter fil;
 
   @override
   String toString() {
-    return 'CryptoEvent.filter(fil: $fil)';
+    return 'CryptoEvent.filter(query: $query, fil: $fil)';
   }
 
   @override
@@ -264,11 +305,13 @@ class _$FilterImpl implements _Filter {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$FilterImpl &&
+            const DeepCollectionEquality().equals(other._query, _query) &&
             (identical(other.fil, fil) || other.fil == fil));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, fil);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_query), fil);
 
   @JsonKey(ignore: true)
   @override
@@ -280,29 +323,29 @@ class _$FilterImpl implements _Filter {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Map<String, dynamic> query) getAllCryptoExchange,
-    required TResult Function(filter fil) filter,
+    required TResult Function(Map<String, dynamic> query, filter fil) filter,
   }) {
-    return filter(fil);
+    return filter(query, fil);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(Map<String, dynamic> query)? getAllCryptoExchange,
-    TResult? Function(filter fil)? filter,
+    TResult? Function(Map<String, dynamic> query, filter fil)? filter,
   }) {
-    return filter?.call(fil);
+    return filter?.call(query, fil);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Map<String, dynamic> query)? getAllCryptoExchange,
-    TResult Function(filter fil)? filter,
+    TResult Function(Map<String, dynamic> query, filter fil)? filter,
     required TResult orElse(),
   }) {
     if (filter != null) {
-      return filter(fil);
+      return filter(query, fil);
     }
     return orElse();
   }
@@ -340,9 +383,14 @@ class _$FilterImpl implements _Filter {
 }
 
 abstract class _Filter implements CryptoEvent {
-  const factory _Filter({required final filter fil}) = _$FilterImpl;
+  const factory _Filter(
+      {required final Map<String, dynamic> query,
+      required final filter fil}) = _$FilterImpl;
 
+  @override
+  Map<String, dynamic> get query;
   filter get fil;
+  @override
   @JsonKey(ignore: true)
   _$$FilterImplCopyWith<_$FilterImpl> get copyWith =>
       throw _privateConstructorUsedError;

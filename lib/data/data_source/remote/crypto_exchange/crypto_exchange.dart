@@ -45,6 +45,34 @@ final class CryptoExchangeDataSource {
     }
   }
 
+  Future<CryptoExchangeModel> filter({required DataMap query}) async {
+    try {
+      final response = await _cleint.get(endpoint(crypto),
+          queryParameters: query,
+          options: Options(
+              receiveDataWhenStatusError: true,
+              headers: headerBearerOption(apiKey)));
+
+      if (!response.isStatusCode(200)) {
+        throw ApiException(
+            failure: FailureModel.fromJson(response.data),
+            message: response.statusMessage!,
+            status: response.statusCode.toString());
+      }
+
+      final data =
+          (response.data["data"] as List).map((e) => Data.fromJson(e)).toList();
+
+      await _getLogos(_cleint, data);
+      return CryptoExchangeModel(data: data);
+    } on DioException catch (e) {
+      return dioExceptionHandling(e);
+    } on ApiException catch (e) {
+      throw ApiException(
+          failure: e.failure, message: e.message, status: e.status);
+    }
+  }
+
   Future<void> _getLogos(Dio cleint, List<Data> data) async {
     for (Data element in data) {
       final Response responses = await _cleint.get(endpoint(logoUrl),
