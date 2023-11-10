@@ -18,59 +18,11 @@ final class CryptoExchangeDataSource {
 
   Future<CryptoExchangeModel> getCryptoExchanges(
       {required DataMap query}) async {
-    try {
-      final response = await _cleint.get(endpoint(crypto),
-          queryParameters: query,
-          options: Options(
-              receiveDataWhenStatusError: true,
-              headers: headerBearerOption(apiKey)));
-
-      if (!response.isStatusCode(200)) {
-        throw ApiException(
-            failure: FailureModel.fromJson(response.data),
-            message: response.statusMessage!,
-            status: response.statusCode.toString());
-      }
-
-      final data =
-          (response.data["data"] as List).map((e) => Data.fromJson(e)).toList();
-
-      await _getLogos(_cleint, data);
-      return CryptoExchangeModel(data: data);
-    } on DioException catch (e) {
-      return dioExceptionHandling(e);
-    } on ApiException catch (e) {
-      throw ApiException(
-          failure: e.failure, message: e.message, status: e.status);
-    }
+    return _apiExcute(query);
   }
 
   Future<CryptoExchangeModel> filter({required DataMap query}) async {
-    try {
-      final response = await _cleint.get(endpoint(crypto),
-          queryParameters: query,
-          options: Options(
-              receiveDataWhenStatusError: true,
-              headers: headerBearerOption(apiKey)));
-
-      if (!response.isStatusCode(200)) {
-        throw ApiException(
-            failure: FailureModel.fromJson(response.data),
-            message: response.statusMessage!,
-            status: response.statusCode.toString());
-      }
-
-      final data =
-          (response.data["data"] as List).map((e) => Data.fromJson(e)).toList();
-
-      await _getLogos(_cleint, data);
-      return CryptoExchangeModel(data: data);
-    } on DioException catch (e) {
-      return dioExceptionHandling(e);
-    } on ApiException catch (e) {
-      throw ApiException(
-          failure: e.failure, message: e.message, status: e.status);
-    }
+    return await _apiExcute(query);
   }
 
   Future<void> _getLogos(Dio cleint, List<Data> data) async {
@@ -83,6 +35,34 @@ final class CryptoExchangeDataSource {
       final {"logo": logo} = responses.data["data"][element.id.toString()];
       data[data.indexOf(element)] =
           data[data.indexOf(element)].copyWith(logoUrl: logo);
+    }
+  }
+
+  Future<CryptoExchangeModel> _apiExcute(DataMap query) async {
+    try {
+      final response = await _cleint.get(endpoint(crypto),
+          queryParameters: query,
+          options: Options(
+              receiveDataWhenStatusError: true,
+              headers: headerBearerOption(apiKey)));
+
+      if (!response.isStatusCode(200)) {
+        throw ApiException(
+            failure: FailureModel.fromJson(response.data),
+            message: response.statusMessage!,
+            status: response.statusCode.toString());
+      }
+
+      final data =
+          (response.data["data"] as List).map((e) => Data.fromJson(e)).toList();
+
+      await _getLogos(_cleint, data);
+      return CryptoExchangeModel(data: data);
+    } on DioException catch (e) {
+      return dioExceptionHandling(e);
+    } on ApiException catch (e) {
+      throw ApiException(
+          failure: e.failure, message: e.message, status: e.status);
     }
   }
 }
