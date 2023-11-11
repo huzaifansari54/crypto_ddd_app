@@ -31,26 +31,24 @@ class SearchBarWidget extends StatelessWidget {
                 width: 220,
                 height: 45,
                 child: TextFormField(
-                  onSaved: (value) {
-                    if (value!.isNotEmpty) {
-                      context
-                          .read<CryptoBloc>()
-                          .add(CryptoEvent.searchLocaly(query1: value));
-                    }
-                  },
-                  onFieldSubmitted: (value) {
-                    if (value.isNotEmpty) {
-                      context
-                          .read<CryptoBloc>()
-                          .add(CryptoEvent.searchLocaly(query1: value));
-                    }
-                  },
+                  // onSaved: (value) {
+                  //   if (value!.isNotEmpty) {
+                  //     context
+                  //         .read<CryptoBloc>()
+                  //         .add(CryptoEvent.searchLocaly(query1: value));
+                  //   }
+                  // },
+                  // onFieldSubmitted: (value) {
+                  //   if (value.isNotEmpty) {
+                  //     context
+                  //         .read<CryptoBloc>()
+                  //         .add(CryptoEvent.searchLocaly(query1: value));
+                  //   }
+                  // },
                   onChanged: (value) {
-                    if (value.isNotEmpty) {
-                      context
-                          .read<CryptoBloc>()
-                          .add(CryptoEvent.searchLocaly(query1: value));
-                    }
+                    context
+                        .read<CryptoBloc>()
+                        .add(CryptoEvent.searchLocaly(query1: value));
                   },
                   style: interMedium,
                   decoration: InputDecoration(

@@ -34,14 +34,16 @@ class CryptoBloc extends Bloc<CryptoEvent, CryptoExchangeState> {
             await _filter(fil, qurey, emit);
           },
           search: (Map<String, dynamic> query) {},
-          searchLocaly: (String query) async {
-            // await Future.delayed(const Duration(seconds: 1));
-            // emit(CryptoExchangeState.loaded(
-            //     entity: CryptoExchangeEntity(
-            //         data: dataList
-            //             .where((element) =>
-            //                 element.symbol.toLowerCase() == query.toLowerCase())
-            //             .toList())));
+          searchLocaly: (String query) {
+            if (query.isEmpty) {
+              emit(CryptoExchangeState.loaded(entity: cache.toList()));
+            } else {
+              emit(CryptoExchangeState.loaded(
+                  entity: cache
+                      .where((element) =>
+                          element.symbol.toLowerCase() == query.toLowerCase())
+                      .toList()));
+            }
           });
     });
   }
