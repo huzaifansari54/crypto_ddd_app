@@ -5,7 +5,7 @@ Crypto App Main Functionlty is fetch data from api and show it
 1) Fetch Crypto currency and show
 2) Filter Crypto currency by price,vol24h
 3) Caching Completed
-4) Pagination coming soon
+4) Pagination Completed
 5) Search Coning soon
 
 ## Technical Points 
