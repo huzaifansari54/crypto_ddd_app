@@ -12,6 +12,6 @@ class FilterCryptoUseCase extends UseCase<DataMap, CryptoExchangeModel> {
   @override
   Future<Either<ApiFailure, CryptoExchangeModel>> call(
       {required DataMap param}) async {
-    return await _repository.filter(query: param);
+    return _repository.filter(query: param);
   }
 }

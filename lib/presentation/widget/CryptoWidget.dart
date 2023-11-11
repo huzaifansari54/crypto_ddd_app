@@ -27,6 +27,7 @@ class CryptoWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               MyImageCache.ImageCache(
+                  errorLoadingImage: const AssetImage(ImageConst.meta),
                   imageUrl: entity.logoUrl,
                   width: (context) => 50,
                   height: (ctx) => 50),

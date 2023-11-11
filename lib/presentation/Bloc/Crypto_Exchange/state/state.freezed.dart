@@ -22,6 +22,9 @@ mixin _$CryptoExchangeState {
     required TResult Function() loading,
     required TResult Function(CryptoExchangeEntity entity) loaded,
     required TResult Function(ApiFailure apiFailure) failed,
+    required TResult Function(
+            ApiFailure apiFailure, CryptoExchangeEntity cacheData)
+        failedWithCachData,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -30,6 +33,8 @@ mixin _$CryptoExchangeState {
     TResult? Function()? loading,
     TResult? Function(CryptoExchangeEntity entity)? loaded,
     TResult? Function(ApiFailure apiFailure)? failed,
+    TResult? Function(ApiFailure apiFailure, CryptoExchangeEntity cacheData)?
+        failedWithCachData,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -38,6 +43,8 @@ mixin _$CryptoExchangeState {
     TResult Function()? loading,
     TResult Function(CryptoExchangeEntity entity)? loaded,
     TResult Function(ApiFailure apiFailure)? failed,
+    TResult Function(ApiFailure apiFailure, CryptoExchangeEntity cacheData)?
+        failedWithCachData,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -47,6 +54,7 @@ mixin _$CryptoExchangeState {
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(Failed value) failed,
+    required TResult Function(_FailedWithCachData value) failedWithCachData,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -55,6 +63,7 @@ mixin _$CryptoExchangeState {
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(Failed value)? failed,
+    TResult? Function(_FailedWithCachData value)? failedWithCachData,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -63,6 +72,7 @@ mixin _$CryptoExchangeState {
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
     TResult Function(Failed value)? failed,
+    TResult Function(_FailedWithCachData value)? failedWithCachData,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -128,6 +138,9 @@ class _$IntialImpl implements _Intial {
     required TResult Function() loading,
     required TResult Function(CryptoExchangeEntity entity) loaded,
     required TResult Function(ApiFailure apiFailure) failed,
+    required TResult Function(
+            ApiFailure apiFailure, CryptoExchangeEntity cacheData)
+        failedWithCachData,
   }) {
     return intial();
   }
@@ -139,6 +152,8 @@ class _$IntialImpl implements _Intial {
     TResult? Function()? loading,
     TResult? Function(CryptoExchangeEntity entity)? loaded,
     TResult? Function(ApiFailure apiFailure)? failed,
+    TResult? Function(ApiFailure apiFailure, CryptoExchangeEntity cacheData)?
+        failedWithCachData,
   }) {
     return intial?.call();
   }
@@ -150,6 +165,8 @@ class _$IntialImpl implements _Intial {
     TResult Function()? loading,
     TResult Function(CryptoExchangeEntity entity)? loaded,
     TResult Function(ApiFailure apiFailure)? failed,
+    TResult Function(ApiFailure apiFailure, CryptoExchangeEntity cacheData)?
+        failedWithCachData,
     required TResult orElse(),
   }) {
     if (intial != null) {
@@ -165,6 +182,7 @@ class _$IntialImpl implements _Intial {
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(Failed value) failed,
+    required TResult Function(_FailedWithCachData value) failedWithCachData,
   }) {
     return intial(this);
   }
@@ -176,6 +194,7 @@ class _$IntialImpl implements _Intial {
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(Failed value)? failed,
+    TResult? Function(_FailedWithCachData value)? failedWithCachData,
   }) {
     return intial?.call(this);
   }
@@ -187,6 +206,7 @@ class _$IntialImpl implements _Intial {
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
     TResult Function(Failed value)? failed,
+    TResult Function(_FailedWithCachData value)? failedWithCachData,
     required TResult orElse(),
   }) {
     if (intial != null) {
@@ -242,6 +262,9 @@ class _$LoadingImpl implements _Loading {
     required TResult Function() loading,
     required TResult Function(CryptoExchangeEntity entity) loaded,
     required TResult Function(ApiFailure apiFailure) failed,
+    required TResult Function(
+            ApiFailure apiFailure, CryptoExchangeEntity cacheData)
+        failedWithCachData,
   }) {
     return loading();
   }
@@ -253,6 +276,8 @@ class _$LoadingImpl implements _Loading {
     TResult? Function()? loading,
     TResult? Function(CryptoExchangeEntity entity)? loaded,
     TResult? Function(ApiFailure apiFailure)? failed,
+    TResult? Function(ApiFailure apiFailure, CryptoExchangeEntity cacheData)?
+        failedWithCachData,
   }) {
     return loading?.call();
   }
@@ -264,6 +289,8 @@ class _$LoadingImpl implements _Loading {
     TResult Function()? loading,
     TResult Function(CryptoExchangeEntity entity)? loaded,
     TResult Function(ApiFailure apiFailure)? failed,
+    TResult Function(ApiFailure apiFailure, CryptoExchangeEntity cacheData)?
+        failedWithCachData,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -279,6 +306,7 @@ class _$LoadingImpl implements _Loading {
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(Failed value) failed,
+    required TResult Function(_FailedWithCachData value) failedWithCachData,
   }) {
     return loading(this);
   }
@@ -290,6 +318,7 @@ class _$LoadingImpl implements _Loading {
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(Failed value)? failed,
+    TResult? Function(_FailedWithCachData value)? failedWithCachData,
   }) {
     return loading?.call(this);
   }
@@ -301,6 +330,7 @@ class _$LoadingImpl implements _Loading {
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
     TResult Function(Failed value)? failed,
+    TResult Function(_FailedWithCachData value)? failedWithCachData,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -382,6 +412,9 @@ class _$LoadedImpl implements _Loaded {
     required TResult Function() loading,
     required TResult Function(CryptoExchangeEntity entity) loaded,
     required TResult Function(ApiFailure apiFailure) failed,
+    required TResult Function(
+            ApiFailure apiFailure, CryptoExchangeEntity cacheData)
+        failedWithCachData,
   }) {
     return loaded(entity);
   }
@@ -393,6 +426,8 @@ class _$LoadedImpl implements _Loaded {
     TResult? Function()? loading,
     TResult? Function(CryptoExchangeEntity entity)? loaded,
     TResult? Function(ApiFailure apiFailure)? failed,
+    TResult? Function(ApiFailure apiFailure, CryptoExchangeEntity cacheData)?
+        failedWithCachData,
   }) {
     return loaded?.call(entity);
   }
@@ -404,6 +439,8 @@ class _$LoadedImpl implements _Loaded {
     TResult Function()? loading,
     TResult Function(CryptoExchangeEntity entity)? loaded,
     TResult Function(ApiFailure apiFailure)? failed,
+    TResult Function(ApiFailure apiFailure, CryptoExchangeEntity cacheData)?
+        failedWithCachData,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -419,6 +456,7 @@ class _$LoadedImpl implements _Loaded {
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(Failed value) failed,
+    required TResult Function(_FailedWithCachData value) failedWithCachData,
   }) {
     return loaded(this);
   }
@@ -430,6 +468,7 @@ class _$LoadedImpl implements _Loaded {
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(Failed value)? failed,
+    TResult? Function(_FailedWithCachData value)? failedWithCachData,
   }) {
     return loaded?.call(this);
   }
@@ -441,6 +480,7 @@ class _$LoadedImpl implements _Loaded {
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
     TResult Function(Failed value)? failed,
+    TResult Function(_FailedWithCachData value)? failedWithCachData,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -539,6 +579,9 @@ class _$FailedImpl implements Failed {
     required TResult Function() loading,
     required TResult Function(CryptoExchangeEntity entity) loaded,
     required TResult Function(ApiFailure apiFailure) failed,
+    required TResult Function(
+            ApiFailure apiFailure, CryptoExchangeEntity cacheData)
+        failedWithCachData,
   }) {
     return failed(apiFailure);
   }
@@ -550,6 +593,8 @@ class _$FailedImpl implements Failed {
     TResult? Function()? loading,
     TResult? Function(CryptoExchangeEntity entity)? loaded,
     TResult? Function(ApiFailure apiFailure)? failed,
+    TResult? Function(ApiFailure apiFailure, CryptoExchangeEntity cacheData)?
+        failedWithCachData,
   }) {
     return failed?.call(apiFailure);
   }
@@ -561,6 +606,8 @@ class _$FailedImpl implements Failed {
     TResult Function()? loading,
     TResult Function(CryptoExchangeEntity entity)? loaded,
     TResult Function(ApiFailure apiFailure)? failed,
+    TResult Function(ApiFailure apiFailure, CryptoExchangeEntity cacheData)?
+        failedWithCachData,
     required TResult orElse(),
   }) {
     if (failed != null) {
@@ -576,6 +623,7 @@ class _$FailedImpl implements Failed {
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(Failed value) failed,
+    required TResult Function(_FailedWithCachData value) failedWithCachData,
   }) {
     return failed(this);
   }
@@ -587,6 +635,7 @@ class _$FailedImpl implements Failed {
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(Failed value)? failed,
+    TResult? Function(_FailedWithCachData value)? failedWithCachData,
   }) {
     return failed?.call(this);
   }
@@ -598,6 +647,7 @@ class _$FailedImpl implements Failed {
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
     TResult Function(Failed value)? failed,
+    TResult Function(_FailedWithCachData value)? failedWithCachData,
     required TResult orElse(),
   }) {
     if (failed != null) {
@@ -613,5 +663,186 @@ abstract class Failed implements CryptoExchangeState {
   ApiFailure get apiFailure;
   @JsonKey(ignore: true)
   _$$FailedImplCopyWith<_$FailedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$FailedWithCachDataImplCopyWith<$Res> {
+  factory _$$FailedWithCachDataImplCopyWith(_$FailedWithCachDataImpl value,
+          $Res Function(_$FailedWithCachDataImpl) then) =
+      __$$FailedWithCachDataImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({ApiFailure apiFailure, CryptoExchangeEntity cacheData});
+
+  $ApiFailureCopyWith<$Res> get apiFailure;
+}
+
+/// @nodoc
+class __$$FailedWithCachDataImplCopyWithImpl<$Res>
+    extends _$CryptoExchangeStateCopyWithImpl<$Res, _$FailedWithCachDataImpl>
+    implements _$$FailedWithCachDataImplCopyWith<$Res> {
+  __$$FailedWithCachDataImplCopyWithImpl(_$FailedWithCachDataImpl _value,
+      $Res Function(_$FailedWithCachDataImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? apiFailure = null,
+    Object? cacheData = null,
+  }) {
+    return _then(_$FailedWithCachDataImpl(
+      apiFailure: null == apiFailure
+          ? _value.apiFailure
+          : apiFailure // ignore: cast_nullable_to_non_nullable
+              as ApiFailure,
+      cacheData: null == cacheData
+          ? _value.cacheData
+          : cacheData // ignore: cast_nullable_to_non_nullable
+              as CryptoExchangeEntity,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ApiFailureCopyWith<$Res> get apiFailure {
+    return $ApiFailureCopyWith<$Res>(_value.apiFailure, (value) {
+      return _then(_value.copyWith(apiFailure: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$FailedWithCachDataImpl implements _FailedWithCachData {
+  const _$FailedWithCachDataImpl(
+      {required this.apiFailure, required this.cacheData});
+
+  @override
+  final ApiFailure apiFailure;
+  @override
+  final CryptoExchangeEntity cacheData;
+
+  @override
+  String toString() {
+    return 'CryptoExchangeState.failedWithCachData(apiFailure: $apiFailure, cacheData: $cacheData)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$FailedWithCachDataImpl &&
+            (identical(other.apiFailure, apiFailure) ||
+                other.apiFailure == apiFailure) &&
+            (identical(other.cacheData, cacheData) ||
+                other.cacheData == cacheData));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, apiFailure, cacheData);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$FailedWithCachDataImplCopyWith<_$FailedWithCachDataImpl> get copyWith =>
+      __$$FailedWithCachDataImplCopyWithImpl<_$FailedWithCachDataImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() intial,
+    required TResult Function() loading,
+    required TResult Function(CryptoExchangeEntity entity) loaded,
+    required TResult Function(ApiFailure apiFailure) failed,
+    required TResult Function(
+            ApiFailure apiFailure, CryptoExchangeEntity cacheData)
+        failedWithCachData,
+  }) {
+    return failedWithCachData(apiFailure, cacheData);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? intial,
+    TResult? Function()? loading,
+    TResult? Function(CryptoExchangeEntity entity)? loaded,
+    TResult? Function(ApiFailure apiFailure)? failed,
+    TResult? Function(ApiFailure apiFailure, CryptoExchangeEntity cacheData)?
+        failedWithCachData,
+  }) {
+    return failedWithCachData?.call(apiFailure, cacheData);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? intial,
+    TResult Function()? loading,
+    TResult Function(CryptoExchangeEntity entity)? loaded,
+    TResult Function(ApiFailure apiFailure)? failed,
+    TResult Function(ApiFailure apiFailure, CryptoExchangeEntity cacheData)?
+        failedWithCachData,
+    required TResult orElse(),
+  }) {
+    if (failedWithCachData != null) {
+      return failedWithCachData(apiFailure, cacheData);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Intial value) intial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Loaded value) loaded,
+    required TResult Function(Failed value) failed,
+    required TResult Function(_FailedWithCachData value) failedWithCachData,
+  }) {
+    return failedWithCachData(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Intial value)? intial,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Loaded value)? loaded,
+    TResult? Function(Failed value)? failed,
+    TResult? Function(_FailedWithCachData value)? failedWithCachData,
+  }) {
+    return failedWithCachData?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Intial value)? intial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Loaded value)? loaded,
+    TResult Function(Failed value)? failed,
+    TResult Function(_FailedWithCachData value)? failedWithCachData,
+    required TResult orElse(),
+  }) {
+    if (failedWithCachData != null) {
+      return failedWithCachData(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _FailedWithCachData implements CryptoExchangeState {
+  const factory _FailedWithCachData(
+          {required final ApiFailure apiFailure,
+          required final CryptoExchangeEntity cacheData}) =
+      _$FailedWithCachDataImpl;
+
+  ApiFailure get apiFailure;
+  CryptoExchangeEntity get cacheData;
+  @JsonKey(ignore: true)
+  _$$FailedWithCachDataImplCopyWith<_$FailedWithCachDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

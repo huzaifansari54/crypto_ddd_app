@@ -12,6 +12,6 @@ class GetAllCryptoUseCase extends UseCase<DataMap, CryptoExchangeModel> {
   @override
   Future<Either<ApiFailure, CryptoExchangeModel>> call(
       {required DataMap param}) async {
-    return await _repository.getCryptoExchange(query: param);
+    return _repository.getCryptoExchange(query: param);
   }
 }

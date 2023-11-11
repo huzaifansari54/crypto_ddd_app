@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  setup();
+  await setup();
   await locator.allReady();
   runApp(const MyApp());
 }
@@ -22,9 +22,10 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<CryptoBloc>(
-          create: (context) => CryptoBloc(locator(), locator())
-            ..add(const CryptoEvent.getAllCryptoExchange(
-                query: {"limit": 20, "sort": "market_cap"})),
+          create: (context) =>
+              CryptoBloc(locator(), locator(), locator(), locator())
+                ..add(const CryptoEvent.getAllCryptoExchange(
+                    query: {"limit": 20, "sort": "market_cap"})),
         ),
       ],
       child: MaterialApp(

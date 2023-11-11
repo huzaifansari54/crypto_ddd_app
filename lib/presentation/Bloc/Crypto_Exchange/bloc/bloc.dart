@@ -2,7 +2,9 @@ import 'package:bloc/bloc.dart';
 import 'package:crypto_v1/core/extensions/utils_extension.dart';
 import 'package:crypto_v1/core/utils/utils.dart';
 import 'package:crypto_v1/data/model/crypto_exchange/crypto_exchange_model.dart';
+import 'package:crypto_v1/domain/UseCase/crypto_exchange/cachedCryptoUseCase.dart';
 import 'package:crypto_v1/domain/UseCase/crypto_exchange/getAllCryptoUseCase.dart';
+import 'package:crypto_v1/domain/UseCase/crypto_exchange/getCacheUseCase.dart';
 import 'package:crypto_v1/domain/entity/crypto_exchange/entity.dart';
 import 'package:crypto_v1/locator.dart';
 import 'package:crypto_v1/presentation/Bloc/Crypto_Exchange/event/event.dart';
@@ -15,8 +17,14 @@ import '../../../widget/searchBar.dart';
 class CryptoBloc extends Bloc<CryptoEvent, CryptoExchangeState> {
   final GetAllCryptoUseCase _getCryproUseCase;
   final FilterCryptoUseCase _filterUseCase;
-  CryptoBloc(this._getCryproUseCase, this._filterUseCase)
-      : super(const CryptoExchangeState.intial()) {
+  final GetCacheCryptoUseCase _getCacheUseCase;
+  final CachedCryptoUseCase _savecachedDataUseCase;
+  CryptoBloc(
+    this._getCryproUseCase,
+    this._filterUseCase,
+    this._getCacheUseCase,
+    this._savecachedDataUseCase,
+  ) : super(const CryptoExchangeState.intial()) {
     on<CryptoEvent>((event, emit) async {
       await event.when(
           getAllCryptoExchange: (q) async {
@@ -68,10 +76,17 @@ class CryptoBloc extends Bloc<CryptoEvent, CryptoExchangeState> {
       DataMap query) async {
     emit(const CryptoExchangeState.loading());
     final resultOrFailure = await _getCryproUseCase(param: query);
-    resultOrFailure.fold((fail) {
-      emit(CryptoExchangeState.failed(apiFailure: fail));
+    await resultOrFailure.fold((fail) async {
+      final cacheData = await _getCacheUseCase(param: {});
+      cacheData.fold((fail) {
+        emit(CryptoExchangeState.failed(apiFailure: fail));
+      }, (cachedata) {
+        emit(CryptoExchangeState.failedWithCachData(
+            apiFailure: fail, cacheData: cachedata.toDomain()));
+      });
     }, (data) {
-      dataList.addAll(data.data.map((e) => e.toEntity()));
+      _savecachedDataUseCase(param: data);
+
       emit(CryptoExchangeState.loaded(entity: data.toDomain()));
     });
   }

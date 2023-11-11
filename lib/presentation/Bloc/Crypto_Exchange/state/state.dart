@@ -12,4 +12,7 @@ abstract class CryptoExchangeState with _$CryptoExchangeState {
       {required CryptoExchangeEntity entity}) = _Loaded;
   const factory CryptoExchangeState.failed({required ApiFailure apiFailure}) =
       Failed;
+  const factory CryptoExchangeState.failedWithCachData(
+      {required ApiFailure apiFailure,
+      required CryptoExchangeEntity cacheData}) = _FailedWithCachData;
 }
