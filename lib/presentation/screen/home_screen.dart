@@ -23,8 +23,33 @@ import '../widget/bottomBarWidget.dart';
 import '../widget/headerBar.dart';
 import '../widget/iconWidget.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final controller = ScrollController();
+  @override
+  void initState() {
+    super.initState();
+    controller.addListener(_loadData);
+  }
+
+  _loadData() {
+    setState(() {});
+    if (controller.position.pixels == controller.position.maxScrollExtent) {
+      final state = BlocProvider.of<CryptoBloc>(context, listen: false).state;
+      state.maybeWhen(
+          loaded: (entity) {
+            context.read<CryptoBloc>().add(CryptoEvent.getAllCryptoExchange(
+                query: {"start": entity.length ?? 1, "limit": 5}));
+          },
+          orElse: () {});
+    }
+  }
 
   @override
   @override
@@ -35,6 +60,7 @@ class HomeScreen extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
           child: SingleChildScrollView(
+            controller: controller,
             child: Column(
               children: [
                 20.sh,
@@ -65,14 +91,18 @@ class BlocWidget extends StatelessWidget {
             intial: () => const SizedBox(),
             failed: (ApiFailure apiFailure) =>
                 FailureWidget(failure: apiFailure),
-            loading: () => const Loading(),
+            loading: (data) {
+              return Column(
+                children: [loaded(data)],
+              );
+            },
             loaded: loaded,
             failedWithCachData:
                 (ApiFailure apiFailure, CryptoExchangeEntity cacheData) =>
                     Column(
                       children: [
                         FailureWidget(failure: apiFailure),
-                        loaded(cacheData),
+                        loaded(cacheData.data!),
                       ],
                     ));
       },
@@ -80,20 +110,22 @@ class BlocWidget extends StatelessWidget {
     );
   }
 
-  Widget loaded(CryptoExchangeEntity data) => data.data!.isNotEmpty
+  Widget loaded(List<DataEntity> data) => data.isNotEmpty
       ? Column(
           children: [
-            TopBitcoinWidget(entity: data.data!.first),
+            TopBitcoinWidget(entity: data.first),
             const HeadingBar(
                 head: "Top Cryptocurrencies",
                 trail: "View All",
                 isheading2: true),
-            ...data.data!
-                .skip(1)
-                .map((e) => CryptoWidget(
-                      entity: e,
-                    ))
-                .toList()
+            ...data.skip(1).map((e) {
+              if (e == data.last) {
+                return const Loading();
+              }
+              return CryptoWidget(
+                entity: e,
+              );
+            }).toList(),
           ],
         )
       : "NoData".text();

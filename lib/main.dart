@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
           create: (context) =>
               CryptoBloc(locator(), locator(), locator(), locator())
                 ..add(const CryptoEvent.getAllCryptoExchange(
-                    query: {"limit": 20, "sort": "market_cap"})),
+                    query: {"limit": 5, "sort": "market_cap"})),
         ),
       ],
       child: MaterialApp(

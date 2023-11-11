@@ -7,9 +7,10 @@ part 'state.freezed.dart';
 @freezed
 abstract class CryptoExchangeState with _$CryptoExchangeState {
   const factory CryptoExchangeState.intial() = _Intial;
-  const factory CryptoExchangeState.loading() = _Loading;
-  const factory CryptoExchangeState.loaded(
-      {required CryptoExchangeEntity entity}) = _Loaded;
+  const factory CryptoExchangeState.loading(
+      {required List<DataEntity> entity}) = _Loading;
+  const factory CryptoExchangeState.loaded({required List<DataEntity> entity}) =
+      _Loaded;
   const factory CryptoExchangeState.failed({required ApiFailure apiFailure}) =
       Failed;
   const factory CryptoExchangeState.failedWithCachData(

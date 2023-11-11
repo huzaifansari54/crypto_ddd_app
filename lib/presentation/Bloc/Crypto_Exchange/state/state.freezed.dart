@@ -19,8 +19,8 @@ mixin _$CryptoExchangeState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() intial,
-    required TResult Function() loading,
-    required TResult Function(CryptoExchangeEntity entity) loaded,
+    required TResult Function(List<DataEntity> entity) loading,
+    required TResult Function(List<DataEntity> entity) loaded,
     required TResult Function(ApiFailure apiFailure) failed,
     required TResult Function(
             ApiFailure apiFailure, CryptoExchangeEntity cacheData)
@@ -30,8 +30,8 @@ mixin _$CryptoExchangeState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? intial,
-    TResult? Function()? loading,
-    TResult? Function(CryptoExchangeEntity entity)? loaded,
+    TResult? Function(List<DataEntity> entity)? loading,
+    TResult? Function(List<DataEntity> entity)? loaded,
     TResult? Function(ApiFailure apiFailure)? failed,
     TResult? Function(ApiFailure apiFailure, CryptoExchangeEntity cacheData)?
         failedWithCachData,
@@ -40,8 +40,8 @@ mixin _$CryptoExchangeState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? intial,
-    TResult Function()? loading,
-    TResult Function(CryptoExchangeEntity entity)? loaded,
+    TResult Function(List<DataEntity> entity)? loading,
+    TResult Function(List<DataEntity> entity)? loaded,
     TResult Function(ApiFailure apiFailure)? failed,
     TResult Function(ApiFailure apiFailure, CryptoExchangeEntity cacheData)?
         failedWithCachData,
@@ -135,8 +135,8 @@ class _$IntialImpl implements _Intial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() intial,
-    required TResult Function() loading,
-    required TResult Function(CryptoExchangeEntity entity) loaded,
+    required TResult Function(List<DataEntity> entity) loading,
+    required TResult Function(List<DataEntity> entity) loaded,
     required TResult Function(ApiFailure apiFailure) failed,
     required TResult Function(
             ApiFailure apiFailure, CryptoExchangeEntity cacheData)
@@ -149,8 +149,8 @@ class _$IntialImpl implements _Intial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? intial,
-    TResult? Function()? loading,
-    TResult? Function(CryptoExchangeEntity entity)? loaded,
+    TResult? Function(List<DataEntity> entity)? loading,
+    TResult? Function(List<DataEntity> entity)? loaded,
     TResult? Function(ApiFailure apiFailure)? failed,
     TResult? Function(ApiFailure apiFailure, CryptoExchangeEntity cacheData)?
         failedWithCachData,
@@ -162,8 +162,8 @@ class _$IntialImpl implements _Intial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? intial,
-    TResult Function()? loading,
-    TResult Function(CryptoExchangeEntity entity)? loaded,
+    TResult Function(List<DataEntity> entity)? loading,
+    TResult Function(List<DataEntity> entity)? loaded,
     TResult Function(ApiFailure apiFailure)? failed,
     TResult Function(ApiFailure apiFailure, CryptoExchangeEntity cacheData)?
         failedWithCachData,
@@ -225,6 +225,8 @@ abstract class _$$LoadingImplCopyWith<$Res> {
   factory _$$LoadingImplCopyWith(
           _$LoadingImpl value, $Res Function(_$LoadingImpl) then) =
       __$$LoadingImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<DataEntity> entity});
 }
 
 /// @nodoc
@@ -234,67 +236,98 @@ class __$$LoadingImplCopyWithImpl<$Res>
   __$$LoadingImplCopyWithImpl(
       _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? entity = null,
+  }) {
+    return _then(_$LoadingImpl(
+      entity: null == entity
+          ? _value._entity
+          : entity // ignore: cast_nullable_to_non_nullable
+              as List<DataEntity>,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$LoadingImpl implements _Loading {
-  const _$LoadingImpl();
+  const _$LoadingImpl({required final List<DataEntity> entity})
+      : _entity = entity;
+
+  final List<DataEntity> _entity;
+  @override
+  List<DataEntity> get entity {
+    if (_entity is EqualUnmodifiableListView) return _entity;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_entity);
+  }
 
   @override
   String toString() {
-    return 'CryptoExchangeState.loading()';
+    return 'CryptoExchangeState.loading(entity: $entity)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LoadingImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$LoadingImpl &&
+            const DeepCollectionEquality().equals(other._entity, _entity));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_entity));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LoadingImplCopyWith<_$LoadingImpl> get copyWith =>
+      __$$LoadingImplCopyWithImpl<_$LoadingImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() intial,
-    required TResult Function() loading,
-    required TResult Function(CryptoExchangeEntity entity) loaded,
+    required TResult Function(List<DataEntity> entity) loading,
+    required TResult Function(List<DataEntity> entity) loaded,
     required TResult Function(ApiFailure apiFailure) failed,
     required TResult Function(
             ApiFailure apiFailure, CryptoExchangeEntity cacheData)
         failedWithCachData,
   }) {
-    return loading();
+    return loading(entity);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? intial,
-    TResult? Function()? loading,
-    TResult? Function(CryptoExchangeEntity entity)? loaded,
+    TResult? Function(List<DataEntity> entity)? loading,
+    TResult? Function(List<DataEntity> entity)? loaded,
     TResult? Function(ApiFailure apiFailure)? failed,
     TResult? Function(ApiFailure apiFailure, CryptoExchangeEntity cacheData)?
         failedWithCachData,
   }) {
-    return loading?.call();
+    return loading?.call(entity);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? intial,
-    TResult Function()? loading,
-    TResult Function(CryptoExchangeEntity entity)? loaded,
+    TResult Function(List<DataEntity> entity)? loading,
+    TResult Function(List<DataEntity> entity)? loaded,
     TResult Function(ApiFailure apiFailure)? failed,
     TResult Function(ApiFailure apiFailure, CryptoExchangeEntity cacheData)?
         failedWithCachData,
     required TResult orElse(),
   }) {
     if (loading != null) {
-      return loading();
+      return loading(entity);
     }
     return orElse();
   }
@@ -341,7 +374,13 @@ class _$LoadingImpl implements _Loading {
 }
 
 abstract class _Loading implements CryptoExchangeState {
-  const factory _Loading() = _$LoadingImpl;
+  const factory _Loading({required final List<DataEntity> entity}) =
+      _$LoadingImpl;
+
+  List<DataEntity> get entity;
+  @JsonKey(ignore: true)
+  _$$LoadingImplCopyWith<_$LoadingImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -350,7 +389,7 @@ abstract class _$$LoadedImplCopyWith<$Res> {
           _$LoadedImpl value, $Res Function(_$LoadedImpl) then) =
       __$$LoadedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({CryptoExchangeEntity entity});
+  $Res call({List<DataEntity> entity});
 }
 
 /// @nodoc
@@ -368,9 +407,9 @@ class __$$LoadedImplCopyWithImpl<$Res>
   }) {
     return _then(_$LoadedImpl(
       entity: null == entity
-          ? _value.entity
+          ? _value._entity
           : entity // ignore: cast_nullable_to_non_nullable
-              as CryptoExchangeEntity,
+              as List<DataEntity>,
     ));
   }
 }
@@ -378,10 +417,16 @@ class __$$LoadedImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$LoadedImpl implements _Loaded {
-  const _$LoadedImpl({required this.entity});
+  const _$LoadedImpl({required final List<DataEntity> entity})
+      : _entity = entity;
 
+  final List<DataEntity> _entity;
   @override
-  final CryptoExchangeEntity entity;
+  List<DataEntity> get entity {
+    if (_entity is EqualUnmodifiableListView) return _entity;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_entity);
+  }
 
   @override
   String toString() {
@@ -393,11 +438,12 @@ class _$LoadedImpl implements _Loaded {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LoadedImpl &&
-            (identical(other.entity, entity) || other.entity == entity));
+            const DeepCollectionEquality().equals(other._entity, _entity));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, entity);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_entity));
 
   @JsonKey(ignore: true)
   @override
@@ -409,8 +455,8 @@ class _$LoadedImpl implements _Loaded {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() intial,
-    required TResult Function() loading,
-    required TResult Function(CryptoExchangeEntity entity) loaded,
+    required TResult Function(List<DataEntity> entity) loading,
+    required TResult Function(List<DataEntity> entity) loaded,
     required TResult Function(ApiFailure apiFailure) failed,
     required TResult Function(
             ApiFailure apiFailure, CryptoExchangeEntity cacheData)
@@ -423,8 +469,8 @@ class _$LoadedImpl implements _Loaded {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? intial,
-    TResult? Function()? loading,
-    TResult? Function(CryptoExchangeEntity entity)? loaded,
+    TResult? Function(List<DataEntity> entity)? loading,
+    TResult? Function(List<DataEntity> entity)? loaded,
     TResult? Function(ApiFailure apiFailure)? failed,
     TResult? Function(ApiFailure apiFailure, CryptoExchangeEntity cacheData)?
         failedWithCachData,
@@ -436,8 +482,8 @@ class _$LoadedImpl implements _Loaded {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? intial,
-    TResult Function()? loading,
-    TResult Function(CryptoExchangeEntity entity)? loaded,
+    TResult Function(List<DataEntity> entity)? loading,
+    TResult Function(List<DataEntity> entity)? loaded,
     TResult Function(ApiFailure apiFailure)? failed,
     TResult Function(ApiFailure apiFailure, CryptoExchangeEntity cacheData)?
         failedWithCachData,
@@ -491,10 +537,10 @@ class _$LoadedImpl implements _Loaded {
 }
 
 abstract class _Loaded implements CryptoExchangeState {
-  const factory _Loaded({required final CryptoExchangeEntity entity}) =
+  const factory _Loaded({required final List<DataEntity> entity}) =
       _$LoadedImpl;
 
-  CryptoExchangeEntity get entity;
+  List<DataEntity> get entity;
   @JsonKey(ignore: true)
   _$$LoadedImplCopyWith<_$LoadedImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -576,8 +622,8 @@ class _$FailedImpl implements Failed {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() intial,
-    required TResult Function() loading,
-    required TResult Function(CryptoExchangeEntity entity) loaded,
+    required TResult Function(List<DataEntity> entity) loading,
+    required TResult Function(List<DataEntity> entity) loaded,
     required TResult Function(ApiFailure apiFailure) failed,
     required TResult Function(
             ApiFailure apiFailure, CryptoExchangeEntity cacheData)
@@ -590,8 +636,8 @@ class _$FailedImpl implements Failed {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? intial,
-    TResult? Function()? loading,
-    TResult? Function(CryptoExchangeEntity entity)? loaded,
+    TResult? Function(List<DataEntity> entity)? loading,
+    TResult? Function(List<DataEntity> entity)? loaded,
     TResult? Function(ApiFailure apiFailure)? failed,
     TResult? Function(ApiFailure apiFailure, CryptoExchangeEntity cacheData)?
         failedWithCachData,
@@ -603,8 +649,8 @@ class _$FailedImpl implements Failed {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? intial,
-    TResult Function()? loading,
-    TResult Function(CryptoExchangeEntity entity)? loaded,
+    TResult Function(List<DataEntity> entity)? loading,
+    TResult Function(List<DataEntity> entity)? loaded,
     TResult Function(ApiFailure apiFailure)? failed,
     TResult Function(ApiFailure apiFailure, CryptoExchangeEntity cacheData)?
         failedWithCachData,
@@ -753,8 +799,8 @@ class _$FailedWithCachDataImpl implements _FailedWithCachData {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() intial,
-    required TResult Function() loading,
-    required TResult Function(CryptoExchangeEntity entity) loaded,
+    required TResult Function(List<DataEntity> entity) loading,
+    required TResult Function(List<DataEntity> entity) loaded,
     required TResult Function(ApiFailure apiFailure) failed,
     required TResult Function(
             ApiFailure apiFailure, CryptoExchangeEntity cacheData)
@@ -767,8 +813,8 @@ class _$FailedWithCachDataImpl implements _FailedWithCachData {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? intial,
-    TResult? Function()? loading,
-    TResult? Function(CryptoExchangeEntity entity)? loaded,
+    TResult? Function(List<DataEntity> entity)? loading,
+    TResult? Function(List<DataEntity> entity)? loaded,
     TResult? Function(ApiFailure apiFailure)? failed,
     TResult? Function(ApiFailure apiFailure, CryptoExchangeEntity cacheData)?
         failedWithCachData,
@@ -780,8 +826,8 @@ class _$FailedWithCachDataImpl implements _FailedWithCachData {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? intial,
-    TResult Function()? loading,
-    TResult Function(CryptoExchangeEntity entity)? loaded,
+    TResult Function(List<DataEntity> entity)? loading,
+    TResult Function(List<DataEntity> entity)? loaded,
     TResult Function(ApiFailure apiFailure)? failed,
     TResult Function(ApiFailure apiFailure, CryptoExchangeEntity cacheData)?
         failedWithCachData,

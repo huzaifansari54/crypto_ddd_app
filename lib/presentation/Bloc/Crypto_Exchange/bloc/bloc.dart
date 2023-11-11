@@ -35,29 +35,30 @@ class CryptoBloc extends Bloc<CryptoEvent, CryptoExchangeState> {
           },
           search: (Map<String, dynamic> query) {},
           searchLocaly: (String query) async {
-            await Future.delayed(const Duration(seconds: 1));
-            emit(CryptoExchangeState.loaded(
-                entity: CryptoExchangeEntity(
-                    data: dataList
-                        .where((element) =>
-                            element.symbol.toLowerCase() == query.toLowerCase())
-                        .toList())));
+            // await Future.delayed(const Duration(seconds: 1));
+            // emit(CryptoExchangeState.loaded(
+            //     entity: CryptoExchangeEntity(
+            //         data: dataList
+            //             .where((element) =>
+            //                 element.symbol.toLowerCase() == query.toLowerCase())
+            //             .toList())));
           });
     });
   }
-  List<DataEntity> dataList = [];
+
+  Set<DataEntity> cache = <DataEntity>{};
 
   Future<void> _filter(
       filter fil, DataMap query, Emitter<CryptoExchangeState> emit) async {
-    emit(const CryptoExchangeState.loading());
+    emit(const CryptoExchangeState.loading(entity: []));
     switch (fil) {
       case filter.price:
         final resultOrFailure = await _filterUseCase(param: query);
         resultOrFailure.fold((fail) {
           emit(CryptoExchangeState.failed(apiFailure: fail));
         }, (data) {
-          dataList.addAll(data.data.map((e) => e.toEntity()));
-          emit(CryptoExchangeState.loaded(entity: data.toDomain()));
+          emit(CryptoExchangeState.loaded(
+              entity: [...data.data.map((e) => e.toEntity())]));
         });
         break;
       case filter.volume_24h:
@@ -65,8 +66,8 @@ class CryptoBloc extends Bloc<CryptoEvent, CryptoExchangeState> {
         resultOrFailure.fold((fail) {
           emit(CryptoExchangeState.failed(apiFailure: fail));
         }, (data) {
-          dataList.addAll(data.data.map((e) => e.toEntity()));
-          emit(CryptoExchangeState.loaded(entity: data.toDomain()));
+          emit(CryptoExchangeState.loaded(
+              entity: [...data.data.map((e) => e.toEntity())]));
         });
         break;
     }
@@ -74,7 +75,7 @@ class CryptoBloc extends Bloc<CryptoEvent, CryptoExchangeState> {
 
   Future<void> _getCrypto(CryptoEvent event, Emitter<CryptoExchangeState> emit,
       DataMap query) async {
-    emit(const CryptoExchangeState.loading());
+    emit(CryptoExchangeState.loading(entity: cache.toList()));
     final resultOrFailure = await _getCryproUseCase(param: query);
     await resultOrFailure.fold((fail) async {
       final cacheData = await _getCacheUseCase(param: {});
@@ -85,9 +86,10 @@ class CryptoBloc extends Bloc<CryptoEvent, CryptoExchangeState> {
             apiFailure: fail, cacheData: cachedata.toDomain()));
       });
     }, (data) {
+      cache.addAll(data.data.map((e) => e.toEntity()).toSet());
       _savecachedDataUseCase(param: data);
 
-      emit(CryptoExchangeState.loaded(entity: data.toDomain()));
+      emit(CryptoExchangeState.loaded(entity: [...cache.toList()]));
     });
   }
 }
