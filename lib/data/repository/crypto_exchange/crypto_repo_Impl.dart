@@ -39,4 +39,11 @@ class CryptoRepositoryImp implements CryptoExchangeRepository {
       return dioErrorHandler(e);
     }
   }
+
+  @override
+  ResultOrFailure<ApiFailure, CryptoExchangeModel> search(
+      {required DataMap query}) {
+    // TODO: implement search
+    throw UnimplementedError();
+  }
 }

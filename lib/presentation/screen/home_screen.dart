@@ -66,21 +66,23 @@ class BlocWidget extends StatelessWidget {
             failed: (ApiFailure apiFailure) =>
                 FailureWidget(failure: apiFailure),
             loading: () => const Loading(),
-            loaded: (CryptoExchangeEntity data) => Column(
-                  children: [
-                    TopBitcoinWidget(entity: data.data!.first),
-                    const HeadingBar(
-                        head: "Top Cryptocurrencies",
-                        trail: "View All",
-                        isheading2: true),
-                    ...data.data!
-                        .skip(1)
-                        .map((e) => CryptoWidget(
-                              entity: e,
-                            ))
-                        .toList()
-                  ],
-                ));
+            loaded: (CryptoExchangeEntity data) => data.data!.isNotEmpty
+                ? Column(
+                    children: [
+                      TopBitcoinWidget(entity: data.data!.first),
+                      const HeadingBar(
+                          head: "Top Cryptocurrencies",
+                          trail: "View All",
+                          isheading2: true),
+                      ...data.data!
+                          .skip(1)
+                          .map((e) => CryptoWidget(
+                                entity: e,
+                              ))
+                          .toList()
+                    ],
+                  )
+                : "NoData".text());
       },
       listener: (context, state) {},
     );

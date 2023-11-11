@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:crypto_v1/core/extensions/utils_extension.dart';
 import 'package:crypto_v1/core/utils/utils.dart';
 import 'package:crypto_v1/data/model/crypto_exchange/crypto_exchange_model.dart';
 import 'package:crypto_v1/domain/UseCase/crypto_exchange/getAllCryptoUseCase.dart';
@@ -6,7 +7,8 @@ import 'package:crypto_v1/domain/entity/crypto_exchange/entity.dart';
 import 'package:crypto_v1/locator.dart';
 import 'package:crypto_v1/presentation/Bloc/Crypto_Exchange/event/event.dart';
 import 'package:crypto_v1/presentation/Bloc/Crypto_Exchange/state/state.dart';
-
+import 'package:flutter/material.dart';
+import 'package:rxdart/rxdart.dart';
 import '../../../../domain/UseCase/crypto_exchange/filter.dart';
 import '../../../widget/searchBar.dart';
 
@@ -16,14 +18,26 @@ class CryptoBloc extends Bloc<CryptoEvent, CryptoExchangeState> {
   CryptoBloc(this._getCryproUseCase, this._filterUseCase)
       : super(const CryptoExchangeState.intial()) {
     on<CryptoEvent>((event, emit) async {
-      await event.when(getAllCryptoExchange: (q) async {
-        await _getCrypto(event, emit);
-      }, filter: (qurey, fil) async {
-        await _filter(fil, qurey, emit);
-      });
+      await event.when(
+          getAllCryptoExchange: (q) async {
+            await _getCrypto(event, emit, q);
+          },
+          filter: (qurey, fil) async {
+            await _filter(fil, qurey, emit);
+          },
+          search: (Map<String, dynamic> query) {},
+          searchLocaly: (String query) async {
+            await Future.delayed(const Duration(seconds: 1));
+            emit(CryptoExchangeState.loaded(
+                entity: CryptoExchangeEntity(
+                    data: dataList
+                        .where((element) =>
+                            element.symbol.toLowerCase() == query.toLowerCase())
+                        .toList())));
+          });
     });
   }
-  final List<DataEntity> dataList = [];
+  List<DataEntity> dataList = [];
 
   Future<void> _filter(
       filter fil, DataMap query, Emitter<CryptoExchangeState> emit) async {
@@ -50,10 +64,10 @@ class CryptoBloc extends Bloc<CryptoEvent, CryptoExchangeState> {
     }
   }
 
-  Future<void> _getCrypto(
-      CryptoEvent event, Emitter<CryptoExchangeState> emit) async {
+  Future<void> _getCrypto(CryptoEvent event, Emitter<CryptoExchangeState> emit,
+      DataMap query) async {
     emit(const CryptoExchangeState.loading());
-    final resultOrFailure = await _getCryproUseCase(param: event.query);
+    final resultOrFailure = await _getCryproUseCase(param: query);
     resultOrFailure.fold((fail) {
       emit(CryptoExchangeState.failed(apiFailure: fail));
     }, (data) {

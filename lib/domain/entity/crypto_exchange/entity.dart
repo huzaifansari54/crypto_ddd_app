@@ -11,7 +11,7 @@ class CryptoExchangeEntity extends Equatable {
   List<Object?> get props => [data];
 }
 
-class DataEntity {
+class DataEntity extends Equatable {
   const DataEntity(
       {required this.logoUrl,
       required this.id,
@@ -33,14 +33,33 @@ class DataEntity {
   final num total_supply;
   final num max_supply;
   final QuotoEntity quote;
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [
+        id,
+        name,
+        logoUrl,
+        symbol,
+        slug,
+        cmc_rank,
+        circulating_supply,
+        total_supply,
+        max_supply,
+        quote
+      ];
 }
 
-class QuotoEntity {
+class QuotoEntity extends Equatable {
   final CurrencyEntity usd;
   const QuotoEntity({required this.usd});
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [usd];
 }
 
-class CurrencyEntity {
+class CurrencyEntity extends Equatable {
   const CurrencyEntity({
     required this.price,
     required this.volume_change_24h,
@@ -57,4 +76,17 @@ class CurrencyEntity {
   final num market_cap;
   bool get isRise => percent_change_1h.isNegative;
   num get percentChange => (percent_change_1h * 100).ceil();
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [
+        price,
+        volume_change_24h,
+        percentChange,
+        percent_change_1h,
+        percent_change_24h,
+        percent_change_7d,
+        isRise,
+        market_cap
+      ];
 }

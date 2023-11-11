@@ -9,4 +9,9 @@ abstract class CryptoEvent with _$CryptoEvent {
       _GetAll;
   const factory CryptoEvent.filter(
       {required DataMap query, required filter fil}) = _Filter;
+  const factory CryptoEvent.search({
+    required DataMap query,
+  }) = _Search;
+  const factory CryptoEvent.searchLocaly({required String query1}) =
+      _SearchLocaly;
 }

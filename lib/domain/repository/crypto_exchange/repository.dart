@@ -7,4 +7,6 @@ abstract class CryptoExchangeRepository {
       {required DataMap query});
   ResultOrFailure<ApiFailure, CryptoExchangeModel> filter(
       {required DataMap query});
+  ResultOrFailure<ApiFailure, CryptoExchangeModel> search(
+      {required DataMap query});
 }
